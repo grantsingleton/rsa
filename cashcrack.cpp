@@ -21,7 +21,7 @@ int main() {
     for (int cash = 1; cash <= 999; cash++) {
         // plug in cash and encrypt
        //for (int decimal = 0; decimal <= 9; decimal++) {
-            cashString = "$" + to_string(cash) + "M\n";
+            cashString = '$' + to_string(cash) + "B\n";
 
             const char* messageArray = cashString.c_str();
 
@@ -54,9 +54,8 @@ int main() {
             in3.close();
 */
 
-
             // Command for encrypting. Needs public key, binary input file ('key.bin' and output file name)
-            string encryptCommand = "openssl rsautl -encrypt -raw -in paddedMessage.txt -out message.txt -inkey presidentpub.pem -pubin";
+            string encryptCommand = "openssl rsautl -encrypt -raw -in paddedMessage.txt -out message.txt -inkey treasurypub.pem -pubin";
             const char * encrypt = encryptCommand.c_str();
             system(encrypt);
 
@@ -73,27 +72,28 @@ int main() {
             getline(in2, testLine, '=');
             //cout << "last: " << testLine[testLine.length() - 1] << endl;
             //cout << "test: " << testLine.length() << endl << testLine << endl;
-                //cout << "Test: " <<  testLine.substr(0,3) << endl;
+            //cout << "Test: " <<  testLine << endl;
                 //cout << paddedString << endl;
 
             string encryptedline = "";
+            int msgNum = 1;
             while (in) {
                 // plug in bank and encrypt
                 getline(in, encryptedline, '=');
                 //cout << "Test: " <<  testLine[0] << endl;
-                //cout << encryptedline.substr(0,3) << endl;
+                //cout << encryptedline << endl << endl;
 
-                //cout << "Line: " << endl << encryptedline << endl << endl;
+                //cout << "Line: " << endl << encryptedline << endl << endl;s
                 
                 if (encryptedline.length() > 1) {
-                    //cout << "test: " <<  testLine.length() << endl;
-                    //cout << "line: " <<  encryptedline.length() << endl;
-
-                    if (testLine.substr(0,2) == encryptedline.substr(0,2)) {
+                    //cout << "test: " <<  testLine.substr(0,3) << endl;
+                    //cout << "line: " <<  encryptedline.substr(0,3) << endl;
+                    msgNum++;
+                    if (testLine.substr(0,10) == encryptedline.substr(0,10)) {
                         cout << "MATCH" << endl;
                         cout << paddedString << endl;
-                        cout << "test: " << endl << testLine << endl << endl;
-                        cout << "line: " << endl << encryptedline << endl;
+                        cout << "Message Number: " << msgNum << endl;
+                        cout << "----------------------------------------" << endl;
                     }
                     //cout << "line: " <<  encryptedline.length() << endl << encryptedline << endl << endl;             
                 } 
